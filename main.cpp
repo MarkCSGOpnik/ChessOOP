@@ -5,12 +5,20 @@ class ChessBoard {
     public:
     ChessBoard()
     {
-        
+        for(int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                
+            }
+        }
     }
     void printBoard()
     {
 
     }
+    private:
+    std::string chessBoardArr[8][8];
 };
 
 class ChessPiece{
@@ -62,6 +70,7 @@ class Pawn : public ChessPiece{
 
 int main()
 {
+    ChessBoard board;
 
     return 0;
 }
