@@ -3,6 +3,10 @@
 
 class ChessBoard {
     public:
+    ChessBoard()
+    {
+        
+    }
     void printBoard()
     {
 
@@ -11,28 +15,53 @@ class ChessBoard {
 
 class ChessPiece{
     public:
-    ChessPiece()
-    {
-        for(int i; i < 8; i++)
-        {
-            for(int j; j < 8; j++)
-            {
-                arrChess[i][j] = 0;
-            }
-        }    
-    }
-    bool isValidMove(int startX, int startY, int endX, int endY)
+    virtual bool isValidMove(int startX, int startY, int endX, int endY) = 0;
+};
+
+class King : public ChessPiece{
+    bool isValidMove(int startX, int startY, int endX, int endY) override 
     {
         
     }
-    protected:
-    int arrChess[8][8];
-
 };
 
+class Queen : public ChessPiece{
+    bool isValidMove(int startX, int startY, int endX, int endY) override
+    {
+
+    }
+};
+
+class Bishop : public ChessPiece{
+    bool isValidMove(int startX, int startY, int endX, int endY) override
+    {
+
+    }
+};
+
+class Knight : public ChessPiece{
+    bool isValidMove(int startX, int startY, int endX, int endY) override
+    {
+
+    }
+};
+
+class Rook : public ChessPiece{
+    bool isValidMove(int startX, int startY, int endX, int endY) override
+    {
+
+    }
+};
+
+class Pawn : public ChessPiece{
+    bool isValidMove(int startX, int startY, int endX, int endY) override
+    {
+
+    }
+};
 
 int main()
 {
-    
+
     return 0;
 }
