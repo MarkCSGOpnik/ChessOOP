@@ -33,10 +33,48 @@ class ChessBoard {
     }
     void printBoard()
     {
+        
+    }
 
+    void startCord()
+        {
+        while(true)
+        {
+        char startX;
+        std::cout << "Enter start x" << std::endl;
+        std::cin >> startX;
+        if(checkCorrectlyStartEnterX(startX)) break;
+        }
+
+        while(true)
+        {
+        char startY;
+        std::cout << "Enter start y" << std::endl;
+        std::cin >> startY;
+        if(checkCorrectlyStartEnterY(startY)) break;
+        }
     }
     private:
+    
+
+    protected:
     std::string chessBoardArr[8][8];
+    bool checkCorrectlyStartEnterX(char startX)
+    {
+        for(int i = 65; i < 73; i++)
+        {
+            if((char)i==startX) return true;
+        }
+        return false;
+    }
+    bool checkCorrectlyStartEnterY(char startY)
+    {
+        for(int i = 1; i < 9; i++)
+        {
+            if(i==(int)startY) return true;
+        }
+        return false;
+    }
 };
 
 class ChessPiece{
@@ -89,6 +127,6 @@ class Pawn : public ChessPiece{
 int main()
 {
     ChessBoard board;
-
+    
     return 0;
 }
