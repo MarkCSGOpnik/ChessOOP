@@ -40,18 +40,21 @@ class ChessBoard {
         {
         while(true)
         {
-        char startX;
-        std::cout << "Enter start x" << std::endl;
-        std::cin >> startX;
-        if(checkCorrectlyStartEnterX(startX)) break;
-        }
-
-        while(true)
-        {
-        char startY;
-        std::cout << "Enter start y" << std::endl;
-        std::cin >> startY;
-        if(checkCorrectlyStartEnterY(startY)) break;
+            char startX;
+            while(true)
+            {
+            std::cout << "Enter start x" << std::endl;
+            std::cin >> startX;
+            if(checkCorrectlyStartEnterX(startX)) break;
+            }
+            char startY;
+            while(true)
+            {
+            std::cout << "Enter start y" << std::endl;
+            std::cin >> startY;
+            if(checkCorrectlyStartEnterY(startY)) break;
+            }
+            checkAvailabilityFigure(startX, startY);
         }
     }
     private:
@@ -64,6 +67,7 @@ class ChessBoard {
         for(int i = 65; i < 73; i++)
         {
             if((char)i==startX) return true;
+            
         }
         return false;
     }
@@ -74,6 +78,11 @@ class ChessBoard {
             if(i==(int)startY) return true;
         }
         return false;
+    }
+    bool checkAvailabilityFigure(char x, char y)
+    {
+        
+        return true;
     }
 };
 
