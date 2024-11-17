@@ -30,6 +30,7 @@ class ChessBoard {
                 }
             }
         }
+        printBoard();
     }
     void printBoard()
     {
@@ -40,25 +41,33 @@ class ChessBoard {
         {
         while(true)
         {
-            char startX;
             while(true)
             {
             std::cout << "Enter start x" << std::endl;
-            std::cin >> startX;
-            if(checkCorrectlyStartEnterX(startX)) break;
+            std::cin >> currentStartX;
+            if(checkCorrectlyStartEnterX(currentStartX)) break;
             }
-            char startY;
             while(true)
             {
             std::cout << "Enter start y" << std::endl;
-            std::cin >> startY;
-            if(checkCorrectlyStartEnterY(startY)) break;
+            std::cin >> currentStartY;
+            if(checkCorrectlyStartEnterY(currentStartY)) break;
             }
-            checkAvailabilityFigure(startX, startY);
+            if(checkAvailabilityFigure(currentStartX, currentStartY)) break;
         }
     }
+    void checkFigure()
+    {
+        switch(currentFigure)
+        {
+            case"whiteRook":
+        }
+    }
+
     private:
-    
+    char currentStartX;
+    char currentStartY;
+    std::string currentFigure;
 
     protected:
     std::string chessBoardArr[8][8];
@@ -66,8 +75,7 @@ class ChessBoard {
     {
         for(int i = 65; i < 73; i++)
         {
-            if((char)i==startX) return true;
-            
+            if((char)i == startX) return true;
         }
         return false;
     }
@@ -75,14 +83,26 @@ class ChessBoard {
     {
         for(int i = 1; i < 9; i++)
         {
-            if(i==(int)startY) return true;
+            if((int)startY == i) return true;
         }
         return false;
     }
-    bool checkAvailabilityFigure(char x, char y)
+    bool checkAvailabilityFigure(char startX, char startY)
     {
-        
-        return true;
+        for(int i = 65; i < 73; i++)
+        {
+            if((char)i == startX) 
+            {
+                startX = i;
+                break;
+            }
+        } 
+        if(chessBoardArr[(int)startX][(int)startY]!="") 
+        {
+            currentFigure = chessBoardArr[(int)startX][(int)startY];
+            return true;
+        }
+            else return false;
     }
 };
 
@@ -129,7 +149,7 @@ class Rook : public ChessPiece{
 class Pawn : public ChessPiece{
     bool isValidMove(int startX, int startY, int endX, int endY) override
     {
-
+        if()
     }
 };
 
