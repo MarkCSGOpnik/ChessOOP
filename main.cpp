@@ -5,28 +5,28 @@ class ChessBoard {
     public:
     ChessBoard()
     {
-        for(int i = 1; i < 9; i++)
+        for(int i = 0; i < 8; i++)
         {
-            for(int j = 1; j < 9; j++)
+            for(int j = 0; j < 8; j++)
             {
-                if(i==1)
+                if(i==0)
                 {
-                if(j == 1 || 8) chessBoardArr[i][j] = "whiteRook";
-                if(j == 2 || 7) chessBoardArr[i][j] = "whiteKnight";
-                if(j == 3 || 6) chessBoardArr[i][j] = "whiteBishop";
-                if(j==4) chessBoardArr[i][j] = "whiteQueen";
-                if(j==5) chessBoardArr[i][j] = "whiteKing";
+                if(j == 0 || j == 7) chessBoardArr[i][j] = "whiteRook";
+                if(j == 1 || j == 6) chessBoardArr[i][j] = "whiteKnight";
+                if(j == 2 || j == 5) chessBoardArr[i][j] = "whiteBishop";
+                if(j==3) chessBoardArr[i][j] = "whiteQueen";
+                if(j==4) chessBoardArr[i][j] = "whiteKing";
                 }
-                if(i=2)chessBoardArr[i][j] = "whitePawn";
-                if(i>3 && i<7)chessBoardArr[i][j] = "";
-                if(i=7)chessBoardArr[i][j] = "blackPawn";
-                if(i==8)
+                if(i==1)chessBoardArr[i][j] = "whitePawn";
+                if(i>2 && i<6)chessBoardArr[i][j] = "";
+                if(i==6)chessBoardArr[i][j] = "blackPawn";
+                if(i==7)
                 {
-                if(j == 1 || 8) chessBoardArr[i][j] = "blackRook";
-                if(j == 2 || 7) chessBoardArr[i][j] = "blackKnight";
-                if(j == 3 || 6) chessBoardArr[i][j] = "blackBishop";
-                if(j==4) chessBoardArr[i][j] = "blackQueen";
-                if(j==5) chessBoardArr[i][j] = "blackKing";
+                if(j == 0 || j == 7) chessBoardArr[i][j] = "blackRook";
+                if(j == 1 || j == 6) chessBoardArr[i][j] = "blackKnight";
+                if(j == 2 || j == 5) chessBoardArr[i][j] = "blackBishop";
+                if(j==3) chessBoardArr[i][j] = "blackQueen";
+                if(j==4) chessBoardArr[i][j] = "blackKing";
                 }
             }
         }
@@ -43,9 +43,10 @@ class ChessBoard {
         {
             while(true)
             {
+            char tempStartX;
             std::cout << "Enter start x" << std::endl;
-            std::cin >> currentStartX;
-            if(checkCorrectlyStartEnterX(currentStartX)) break;
+            std::cin >> tempStartX;
+            if(checkCorrectlyStartEnterX(tempStartX)) break;
             }
             while(true)
             {
@@ -53,20 +54,17 @@ class ChessBoard {
             std::cin >> currentStartY;
             if(checkCorrectlyStartEnterY(currentStartY)) break;
             }
-            if(checkAvailabilityFigure(currentStartX, currentStartY)) break;
+            if(checkAvailabilityFigure()) break;
         }
     }
     void checkFigure()
     {
-        switch(currentFigure)
-        {
-            case"whiteRook":
-        }
+        
     }
 
     private:
-    char currentStartX;
-    char currentStartY;
+    int currentStartX;
+    int currentStartY;
     std::string currentFigure;
 
     protected:
@@ -75,31 +73,27 @@ class ChessBoard {
     {
         for(int i = 65; i < 73; i++)
         {
-            if((char)i == startX) return true;
+            if((char)i == startX)
+            {
+                currentStartX = i - 65;
+                return true;
+            } 
         }
         return false;
     }
     bool checkCorrectlyStartEnterY(char startY)
     {
-        for(int i = 1; i < 9; i++)
+        for(int i = 0; i < 8; i++)
         {
             if((int)startY == i) return true;
         }
         return false;
     }
-    bool checkAvailabilityFigure(char startX, char startY)
+    bool checkAvailabilityFigure()
     {
-        for(int i = 65; i < 73; i++)
+        if(chessBoardArr[currentStartY][currentStartX]!="") 
         {
-            if((char)i == startX) 
-            {
-                startX = i;
-                break;
-            }
-        } 
-        if(chessBoardArr[(int)startX][(int)startY]!="") 
-        {
-            currentFigure = chessBoardArr[(int)startX][(int)startY];
+            currentFigure = chessBoardArr[currentStartY][currentStartX];
             return true;
         }
             else return false;
@@ -111,21 +105,21 @@ class ChessPiece{
     virtual bool isValidMove(int startX, int startY, int endX, int endY) = 0;
 };
 
-class King : public ChessPiece{
+class King : public ChessPiece{ 
     bool isValidMove(int startX, int startY, int endX, int endY) override 
     {
         
     }
 };
 
-class Queen : public ChessPiece{
+class Queen : public ChessPiece{ 
     bool isValidMove(int startX, int startY, int endX, int endY) override
     {
 
     }
 };
 
-class Bishop : public ChessPiece{
+class Bishop : public ChessPiece{ 
     bool isValidMove(int startX, int startY, int endX, int endY) override
     {
 
@@ -149,13 +143,13 @@ class Rook : public ChessPiece{
 class Pawn : public ChessPiece{
     bool isValidMove(int startX, int startY, int endX, int endY) override
     {
-        if()
+        
     }
 };
 
 int main()
 {
-    ChessBoard board;
+    
     
     return 0;
 }
