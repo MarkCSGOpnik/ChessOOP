@@ -8,6 +8,7 @@ class ChessPiece{
 };
 
 class King : public ChessPiece{ 
+    public:
     bool isValidMove(int startX, int startY, int endX, int endY) override 
     {
         
@@ -15,6 +16,7 @@ class King : public ChessPiece{
 };
 
 class Queen : public ChessPiece{ 
+    public:
     bool isValidMove(int startX, int startY, int endX, int endY) override
     {
 
@@ -22,6 +24,7 @@ class Queen : public ChessPiece{
 };
 
 class Bishop : public ChessPiece{ 
+    public:
     bool isValidMove(int startX, int startY, int endX, int endY) override
     {
 
@@ -29,6 +32,7 @@ class Bishop : public ChessPiece{
 };
 
 class Knight : public ChessPiece{
+    public:
     bool isValidMove(int startX, int startY, int endX, int endY) override
     {
 
@@ -36,6 +40,7 @@ class Knight : public ChessPiece{
 };
 
 class Rook : public ChessPiece{
+    public:
     bool isValidMove(int startX, int startY, int endX, int endY) override
     {
 
@@ -43,6 +48,7 @@ class Rook : public ChessPiece{
 };
 
 class Pawn : public ChessPiece{
+    public:
     bool isValidMove(int startX, int startY, int endX, int endY) override
     {
         
@@ -159,6 +165,7 @@ class ChessBoard {
         case -5:
         case 5:
         {
+
             break;
         }    
         case -6:
