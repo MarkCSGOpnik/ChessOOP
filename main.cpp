@@ -91,7 +91,17 @@ class ChessBoard {
         
     }
 
-    void startCord(){
+    void move(){
+        while(true)
+        {
+        startCord();
+        endCord();
+        enterFigure();
+        }
+    }
+
+    void startCord()
+    {
         while(true)
         {
             while(true)
@@ -111,26 +121,25 @@ class ChessBoard {
         }
     }
 
-    // void endCord()
-    // {
-    //     while(true)
-    //     {
-    //         while(true)
-    //         {
-    //         char tempEndX;
-    //         std::cout << "Enter end x" << std::endl;
-    //         std::cin >> tempEndX;
-    //         if() break;
-    //         }
-    //         while(true)
-    //         {
-    //         int tempEndY;
-    //         std::cout << "Enter end y" << std::endl;
-    //         std::cin >> tempEndY;
-    //         if() break;
-    //         }
-    //     }
-    // }
+    void endCord()
+    {
+        while(true)
+        {
+            while(true)
+            {
+            char tempEndX;
+            std::cout << "Enter end x" << std::endl;
+            std::cin >> tempEndX;
+            if(checkCorrectlyEnterEndX(tempEndX)) break;
+            }
+            while(true)
+            {
+            std::cout << "Enter end y" << std::endl;
+            std::cin >> currentEndY;
+            if(checkCorrectlyEnterEndY()) break;
+            }
+        }
+    }
 
 
 
@@ -141,37 +150,37 @@ class ChessBoard {
         case -1: 
         case 1:
         {
-
+            king.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
             break;
         }
         case -2:
         case 2:
         {
-
+            queen.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
             break;
         }   
         case -3:
         case 3: 
         {
-
+            bishop.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
             break;
         }  
         case -4:
         case 4:
         {
-
+            knight.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
             break;
         }
         case -5:
         case 5:
         {
-
+            rook.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
             break;
         }    
         case -6:
         case 6: 
         {
-
+            pawn.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
             break;
         }  
         default:
@@ -180,7 +189,14 @@ class ChessBoard {
        }
        }
     }
+
     private:
+    King king;
+    Queen queen;
+    Bishop bishop;
+    Knight knight;
+    Rook rook;
+    Pawn pawn;
     std::unordered_map<std::string, int> figure = {
         {"whiteKing", 1},
         {"whiteQueen", 2},
@@ -198,6 +214,8 @@ class ChessBoard {
     std::string currentFigure;
     int currentStartX;
     int currentStartY;
+    int currentEndX;
+    int currentEndY;
     std::string chessBoardArr[8][8];
 
     bool checkCorrectlyEnterStartX(char x)
@@ -221,6 +239,29 @@ class ChessBoard {
         return false;
     }
 
+    bool checkCorrectlyEnterEndX(char x)
+    {
+        for(int i = 65; i < 73; i++)
+        {
+            if((char)i == x)
+            {
+                this->currentEndX = i - 65;
+                return true;
+            } 
+        }
+        return false;
+    }
+
+    bool checkCorrectlyEnterEndY()
+    {
+        for(int i = 0; i < 8; i++){
+            if(this->currentEndY == i) return true;
+        }
+        return false;
+    }
+
+
+
     bool checkAvailabilityFigure()
     {
         if(chessBoardArr[currentStartY][currentStartX] != "") {
@@ -235,7 +276,7 @@ class ChessBoard {
 
 int main()
 {
-    
-    
+    ChessBoard game;
+    game.move();
     return 0;
 }
