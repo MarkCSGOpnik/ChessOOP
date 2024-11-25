@@ -5,6 +5,7 @@
 class ChessPiece{
     public:
     virtual bool isValidMove(int startX, int startY, int endX, int endY) = 0;
+    static int step;
 };
 
 class King : public ChessPiece{ 
@@ -22,7 +23,13 @@ class Queen : public ChessPiece{
     public:
     bool isValidMove(int startX, int startY, int endX, int endY) override
     {
-
+        if(startX != endX && startY != endY){
+            if(endX - startX == endY - startY || endX - startX == -(endY - startY)) return true;
+        }
+        else if(startX != endX || startY != endY){
+            if(startX == endX || startY == endY) return true;
+        }
+        return false;
     }
 };
 
@@ -159,7 +166,7 @@ class ChessBoard {
         case -1: 
         case 1:
         {
-            king.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
+            if(king.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY)) ChessPiece::step++;
             break;
         }
         case -2:
