@@ -11,7 +11,7 @@ class King : public ChessPiece{
     public:
     bool isValidMove(int startX, int startY, int endX, int endY) override 
     {
-        if(startX != endX && startY != endY){
+        if(startX != endX || startY != endY){
             if(startX == endX-- || startX == endX++ || startY == endY-- || startY == endY++) return true;
         }
         return false;
@@ -30,7 +30,10 @@ class Bishop : public ChessPiece{
     public:
     bool isValidMove(int startX, int startY, int endX, int endY) override
     {
-
+        if(startX != endX && startY != endY){
+            if(endX - startX == endY - startY || endX - startX == -(endY - startY)) return true;
+        }
+        return false;
     }
 };
 
@@ -46,7 +49,10 @@ class Rook : public ChessPiece{
     public:
     bool isValidMove(int startX, int startY, int endX, int endY) override
     {
-
+        if(startX != endX || startY != endY){
+            if(startX == endX || startY == endY) return true;
+        }
+        return false;
     }
 };
 
