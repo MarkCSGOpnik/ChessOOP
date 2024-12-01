@@ -48,7 +48,14 @@ class Knight : public ChessPiece{
     public:
     bool isValidMove(int startX, int startY, int endX, int endY) override
     {
-
+        if(startX != endX && startY != endY){
+            if(startX - endX == 2 || endX - startX == 2){
+                if(startY - endY == 1 || endY-startY == 1)return true;
+            }
+            else if(startY - endY == 2 || endY - startY == 2){
+                if(startX - endX == 1 || endX - startX == 1)return true;
+            }
+        }
     }
 };
 
