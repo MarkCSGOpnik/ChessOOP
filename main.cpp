@@ -5,7 +5,6 @@
 class ChessPiece{
     public:
     virtual bool isValidMove(int startX, int startY, int endX, int endY) = 0;
-    static int step;
 };
 
 class King : public ChessPiece{ 
@@ -56,6 +55,7 @@ class Knight : public ChessPiece{
                 if(startX - endX == 1 || endX - startX == 1)return true;
             }
         }
+        return false;
     }
 };
 
@@ -70,13 +70,28 @@ class Rook : public ChessPiece{
     }
 };
 
-class Pawn : public ChessPiece{
+class PawnW : public ChessPiece{
     public:
     bool isValidMove(int startX, int startY, int endX, int endY) override
     {
-        
+        if(startX == endX && startY == endY++) return true;
+        if(startY == 1 && startY == endY+2 && startX == endX) return true;
+        if(startY == endY++ && startX == endX++ || startX == endX--) return true;
+        return false;
     }
 };
+
+class PawnB : public ChessPiece{
+    public:
+    bool isValidMove(int startX, int startY, int endX, int endY) override
+    {
+        if(startX == endX && startY == endY--) return true;
+        if(startY == 6 && startY == endY-2 && startX == endX) return true;
+        if(startY == endY-- && startX == endX++ || startX == endX--) return true;
+        return false;
+    }
+};
+
 
 class ChessBoard {
     public:
@@ -173,7 +188,7 @@ class ChessBoard {
         case -1: 
         case 1:
         {
-            if(king.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY)) ChessPiece::step++;
+            king.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
             break;
         }
         case -2:
@@ -201,9 +216,13 @@ class ChessBoard {
             break;
         }    
         case -6:
+        {
+            pawnB.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
+            break;
+        }
         case 6: 
         {
-            pawn.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
+            pawnW.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
             break;
         }  
         default:
@@ -214,12 +233,16 @@ class ChessBoard {
     }
 
     private:
+
+    int step;
     King king;
     Queen queen;
     Bishop bishop;
     Knight knight;
     Rook rook;
-    Pawn pawn;
+    PawnW pawnW;
+    PawnB pawnB;
+
     std::unordered_map<std::string, int> figure = {
         {"whiteKing", 1},
         {"whiteQueen", 2},
@@ -234,6 +257,7 @@ class ChessBoard {
         {"blackRook", -5},
         {"blackPawn", -6}
     };
+
     std::string currentFigure;
     int currentStartX;
     int currentStartY;
