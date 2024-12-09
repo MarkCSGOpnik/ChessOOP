@@ -1,2 +1,6 @@
-*.vscode, *.exe 
-
+.vscode/ 
+bin/
+obj/
+*.o
+*.out
+*.exe 
