@@ -114,6 +114,7 @@ class ChessBoard {
                 if (i == 6)chessBoardArr[i][j] = "blackPawn";
                 if (i == 7)
                 {
+                    
                     if (j == 0 || j == 7) chessBoardArr[i][j] = "blackRook";
                     if (j == 1 || j == 6) chessBoardArr[i][j] = "blackKnight";
                     if (j == 2 || j == 5) chessBoardArr[i][j] = "blackBishop";
@@ -126,15 +127,38 @@ class ChessBoard {
     }
     void printBoard()
     {
-        
+        for(int i = 0;i < 8;i++){
+            for(int j = 0;j < 8;j++){
+                if(chessBoardArr[i][j] == "whiteRook") std::cout<<" wR";
+                if(chessBoardArr[i][j] == "whiteKnight") std::cout<<" wK";
+                if(chessBoardArr[i][j] == "whiteBishop") std::cout<<" wB";
+                if(chessBoardArr[i][j] == "whiteQueen") std::cout<<" wQ";
+                if(chessBoardArr[i][j] == "whiteKing") std::cout<<" ++";
+                if(chessBoardArr[i][j] == "whitePawn") std::cout<<" wP";
+                if(chessBoardArr[i][j] == "blackPawn") std::cout<<" bP";
+                if(chessBoardArr[i][j] == "blackRook") std::cout<<" bR";
+                if(chessBoardArr[i][j] == "blackKnight") std::cout<<" bK";
+                if(chessBoardArr[i][j] == "blackBishop") std::cout<<" bB";
+                if(chessBoardArr[i][j] == "blackQueen") std::cout<<" bQ";
+                if(chessBoardArr[i][j] == "blackKing") std::cout<<" --";
+                
+            }
+            std::cout << std::endl;
+        }
     }
 
     void move(){
         while(true)
         {
-        startCord();
-        endCord();
-        enterFigure();
+            while(true)
+            {
+            startCord();
+            endCord();
+            if(enterFigure()) break;
+            }
+            chessBoardArr[currentStartX][currentEndY] = " ";
+            chessBoardArr[currentEndX][currentEndY] = currentFigure;
+            printBoard();
         }
     }
 
@@ -148,12 +172,15 @@ class ChessBoard {
             std::cout << "Enter start x" << std::endl;
             std::cin >> tempStartX;
             if(checkCorrectlyEnterStartX(tempStartX)) break;
+            std::cout << "S";
             }
             while(true)
             {
             std::cout << "Enter start y" << std::endl;
             std::cin >> currentStartY;
+            currentStartY--;
             if(checkCorrectlyEnterStartY()) break;
+            std::cout << "S";
             }
             if(checkAvailabilityFigure()) break;
         }
@@ -174,60 +201,55 @@ class ChessBoard {
             {
             std::cout << "Enter end y" << std::endl;
             std::cin >> currentEndY;
+            currentEndY--;
             if(checkCorrectlyEnterEndY()) break;
             }
+            if(enterFigure()) break;
         }
     }
 
 
 
-    void enterFigure()
+    bool enterFigure()
     {
         switch (figure[currentFigure])
         {
         case -1: 
         case 1:
         {
-            king.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
-            break;
+            return king.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
         }
         case -2:
         case 2:
         {
-            queen.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
-            break;
+            return queen.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
         }   
         case -3:
         case 3: 
         {
-            bishop.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
-            break;
+            return bishop.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
         }  
         case -4:
         case 4:
         {
-            knight.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
-            break;
+            return knight.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
         }
         case -5:
         case 5:
         {
-            rook.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
-            break;
+            return rook.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
         }    
         case -6:
         {
-            pawnB.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
-            break;
+            return pawnB.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
         }
         case 6: 
         {
-            pawnW.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
-            break;
+            return pawnW.isValidMove(currentStartX, currentStartY, currentEndX, currentEndY);
         }  
         default:
        {
-
+            return false;
        }
        }
     }
